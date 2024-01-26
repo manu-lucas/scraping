@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router()
 const { writeFileSync } = require("fs");  // Agrega esta línea para importar writeFileSync
-const Titular = require("../models/titular");
-const Representante = require("../models/representante")
-const Actividad = require("../models/actividad")
-const Periodos = require("../models/periodos.js")
-const sequelize = require("../config/db");
+// const Titular = require("../models/titular");
+// const Representante = require("../models/representante")
+// const Actividad = require("../models/actividad")
+// const Periodos = require("../models/periodos.js")
+// const sequelize = require("../config/db");
 const runAllUsers = require("../modules/main.js")
 
 router.post("/", async (req, res) => {
