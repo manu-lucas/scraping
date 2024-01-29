@@ -155,5 +155,58 @@ const { table } = require('console');
     }
 };
 
+const getFacturas = async(driver)=>{
+    try{
+         //Click en Datos personales y tributarios
 
-module.exports = {getNameAndRut,getAdress,getEconomicActivities,getFormularioF29,getXvalue, getOwnerOfData};
+         await driver.findElement(By.id('menu_home')).click();
+         await driver.manage().setTimeouts({implicit: 1500});
+         await driver.findElement(By.className("ic_box1")).click();
+         console.log("aca estoy")
+         await driver.sleep(1500)
+         const originalWindow = await driver.getWindowHandle();
+
+         await driver.findElement(By.partialLinkText('Registro de Compras y Ventas')).click();
+         await driver.manage().setTimeouts({implicit: 1500});
+
+
+         await driver.wait(
+            async () => (await driver.getAllWindowHandles()).length === 2,
+            1000
+          );        //  await driver.manage().setTimeouts({implicit: 2500});
+          const windows = await driver.getAllWindowHandles();
+          windows.forEach(async handle => {
+            if (handle !== originalWindow) {
+              await driver.switchTo().window(handle);
+            }
+          });
+          const nuevoTitulo = await driver.getTitle();
+// console.log('Título de la nueva ventana:', nuevoTitulo);
+          await driver.wait(until.titleIs("MISII"), 10000);
+         await driver.findElement(By.partialLinkText('Ingresar al Registro')).click();
+
+
+        //  await driver.findElement(By.partialLinkText('Ingresar al Registro')).click();
+        // const name = await driver.findElement(By.className('title'))
+        // const enlace = await driver.findElement(By.css('div#contenido a[href="https://www4.sii.cl/consdcvinternetui"]'));
+
+        // Hacer clic en el enlace
+        // await enlace.click();
+        //  console.log(enlace)
+        //  await driver.findElement(By.linkText('Registro de Compras y Ventas')).click();
+        //  await driver.manage().setTimeouts({implicit: 1500});
+
+{/* <button type="submit" class="btn btn-default btn-xs-block btn-block">Consultar</button> */}
+    //     const selectElement = await driver.findElement(By.id('periodoMes'))
+    //   const select = new Select(selectElement)
+    //   await select.selectByVisibleText('Diciembre')
+
+        await driver.sleep(9000)
+
+    }catch(error){
+        console.log(`error in getFacturas: ${error}`);
+
+    }
+}
+
+module.exports = {getNameAndRut,getAdress,getEconomicActivities,getFormularioF29,getXvalue, getOwnerOfData,getFacturas};

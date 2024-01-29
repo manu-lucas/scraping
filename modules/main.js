@@ -1,7 +1,7 @@
 const { Builder } = require('selenium-webdriver');
 const loginModule = require('./loginModule.js');
 const dataExtractor = require('./dataExtractor.js');
-const { getEconomicActivities, getFormularioF29, getNameAndRut, getAdress, getOwnerOfData } = dataExtractor;
+const { getEconomicActivities, getFormularioF29, getNameAndRut, getAdress, getOwnerOfData,getFacturas } = dataExtractor;
 const { writeFileSync, readFileSync } = require('fs');
 // const jsonData = JSON.parse(readFileSync('resultadoFiltrado.json', 'utf-8'));
 
@@ -20,18 +20,28 @@ const { writeFileSync, readFileSync } = require('fs');
         await loginModule(driver, rut, password);
         //Representantes legales
         const infoArray =  await getNameAndRut(driver);
-        //Domicilio
+        // //Domicilio
         const info2 = await getAdress(driver)
         infoArray.push(info2)
-        //Nombre del dueño de los datos
+        // //Nombre del dueño de los datos
         const infoAdicional = await getOwnerOfData(driver)
         infoArray.push(infoAdicional)
-        //Actividades economicas
+        // //Actividades economicas
         const info3 = await getEconomicActivities(driver);
         infoArray.push(info3)
+
+        //-------------
+         await getFacturas(driver);
+
+        //-----------
         //Formulario F29
-        const objScreenshot = await getFormularioF29(driver);
-        infoArray.push(objScreenshot)
+        // const objScreenshot = await getFormularioF29(driver);
+        // infoArray.push(objScreenshot)
+        // ------------------------------
+
+        // --------------------
+
+
         driver.quit();
         const outputFile = './ULTIMARECOPILACION.json';
         writeFileSync(outputFile, JSON.stringify(infoArray, null, 2));
