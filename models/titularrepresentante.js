@@ -5,12 +5,10 @@ const TitularRepresentante = sequelize.define('TitularRepresentante', {
     rut_titular: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
     },
     rut_representants: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
     },
   });
 
