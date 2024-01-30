@@ -180,11 +180,38 @@ const getFacturas = async(driver)=>{
               await driver.switchTo().window(handle);
             }
           });
-          const nuevoTitulo = await driver.getTitle();
+        //   const nuevoTitulo = await driver.getTitle();
 // console.log('Título de la nueva ventana:', nuevoTitulo);
-          await driver.wait(until.titleIs("MISII"), 10000);
+        //   await driver.wait(until.titleIs("MISII"), 10000);
          await driver.findElement(By.partialLinkText('Ingresar al Registro')).click();
+        //  await driver.manage().setTimeouts({implicit: 1500});
 
+/*   ------------------------   */
+    //  await driver.manage().setTimeouts({implicit: 2500});
+    await driver.manage().setTimeouts({implicit: 1500});
+
+
+    await driver.wait(
+       async () => (await driver.getAllWindowHandles()).length === 2,
+       1000
+     );        //  await driver.manage().setTimeouts({implicit: 2500});
+     const windows1 = await driver.getAllWindowHandles();
+     windows1.forEach(async handle => {
+       if (handle !== originalWindow) {
+         await driver.switchTo().window(handle);
+       }
+     });
+
+          await driver.findElement(By.id('periodoMes'))
+            //   await select.selectByValue('06')
+              await select.selectByVisibleText('Marzo')
+
+
+/*  
+
+
+<select  id="periodoMes" "><option value="">Mes</option><!-- ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="01" class="ng-binding ng-scope" style="">Enero</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="02" class="ng-binding ng-scope">Febrero</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="03" class="ng-binding ng-scope">Marzo</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="04" class="ng-binding ng-scope">Abril</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="05" class="ng-binding ng-scope">Mayo</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="06" class="ng-binding ng-scope">Junio</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="07" class="ng-binding ng-scope">Julio</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="08" class="ng-binding ng-scope">Agosto</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="09" class="ng-binding ng-scope">Septiembre</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="10" class="ng-binding ng-scope">Octubre</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="11" class="ng-binding ng-scope">Noviembre</option><!-- end ngRepeat: mes in meses --><option ng-repeat="mes in meses" value="12" class="ng-binding ng-scope">Diciembre</option><!-- end ngRepeat: mes in meses --></select>
+*/
 
         //  await driver.findElement(By.partialLinkText('Ingresar al Registro')).click();
         // const name = await driver.findElement(By.className('title'))
